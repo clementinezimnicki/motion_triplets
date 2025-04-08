@@ -5,14 +5,14 @@ library("jsonlite")
 library("gtools")
 #install.packages("gtools")
 
-setwd("~/Documents/GitHub/gabor_triplets/img/")
+setwd("/Users/czimnicki/Documents/GitHub/motion_triplets/img")
 
 
 # Set the directory containing the images
-image_dir <- "~/Documents/GitHub/gabor_triplets/img"  # Change this to your actual folder path
+image_dir <- "~/Documents/GitHub/motion_triplets/img"  # Change this to your actual folder path
 
 # List all files in the directory matching your naming pattern
-image_files <- list.files(image_dir, pattern = "gabor*", full.names = TRUE)
+image_files <- list.files(image_dir, pattern = "dot*", full.names = TRUE)
 
 # Sort files to ensure correct renaming order
 #image_files <- sort(image_files)
@@ -41,7 +41,7 @@ all_combinations <- combn(image_files, 3)
 
 #generate permutations
 #all_permutations <- combn(18, 3, image_files, repeats.allowed=F)
-all_combinations <- gsub("/Users/czimnicki/Documents/GitHub/gabor_triplets/", "\\1", all_combinations)
+all_combinations <- gsub("/Users/czimnicki/Documents/GitHub/motion_triplets/", "\\1", all_combinations)
 
 # Randomly sample 25 sets of combinations
 set.seed(123)  # Set seed for reproducibility
