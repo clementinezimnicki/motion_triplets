@@ -104,6 +104,6 @@ json_output_final <- toJSON(json_output, auto_unbox=TRUE, pretty = TRUE)
 
 # View the JSON output
 #cat(json_output)
-write(json_output_final, "~/Documents/GitHub/gabor_triplets/checkTrials.json")
+write(json_output_final, "~/Documents/GitHub/motion_triplets/checkTrials.json")
 
 
