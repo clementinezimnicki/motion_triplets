@@ -21,7 +21,7 @@
     <script src="jspsych/jspsych-psychophysics.js"></script>
     <script src="jspsych/plugin-image-button-response.js"></script>
     <script src ="checkTrials.json"></script>
-    <script src ="gaborNames.json"></script>
+    <script src ="motionNames.json"></script>
     <script src ="validationRandom.json"></script>
     <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
     <link href="jspsych/jspsych.css" rel="stylesheet" type="text/css" />
@@ -105,7 +105,7 @@
     var preload = {
         type: jsPsychPreload,
         auto_preload: true,
-        images: imgGabor,
+        images: imgMotion,
         show_progress_bar: true,
         message: "Loading experiment files...",
         error_message: "Oops! There's a problem loading files. Please refresh the page to try again."
@@ -116,13 +116,13 @@
     var stimuli = [];
 
     //the hex codes of all colors we are using
-    for (i = 0; i < imgGabor.length; i++){
+    for (i = 0; i < imgMotion.length; i++){
         stimuli.push(
-            {item: imgGabor[i]},
+            {item: imgMotion[i]},
         )
     }
 
-    var stimuli_arr = imgGabor
+    var stimuli_arr = imgMotion
 
     validation_concat = validationTrials;
 
