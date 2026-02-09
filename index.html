@@ -272,38 +272,7 @@
       
       var arr_pair = [];
 
-// define the trials!
 /*
-    var trial = {
-        type: jsPsychImageButtonResponse,
-        stimulus: jsPsych.timelineVariable('item'),    // IF YOU CHANGED THE OBJECT NAMES IN YOUR ARRAY ABOVE, CHANGE THEM HERE TO MATCH     
-        choices: function(){
-            shuffle(stimuli_arr);
-            arr_pair = getRandomItems(stimuli_arr);
-            // the following makes sure the choices and stimulus are NOT the same!
-            while(arr_pair[0] == jsPsych.timelineVariable('item') || arr_pair[1] == jsPsych.timelineVariable('item')){
-                arr_pair = getRandomItems(stimuli_arr);
-            }
-            return arr_pair;
-        },
-        button_html: '<button class="jspsych-btn-ckz"><img src= %choice%></button>',
-        on_finish: function(data){
-            
-            shuffle(stimuli_arr); // CHANGE THIS TO MATCH THE REGULAR ARRAY YOU SPECIFIED ABOVE
-            data.choices = arr_pair;
-            n = 1;
-            var data_last1 = jsPsych.data.get().last(n);
-            lasttrialdata_rt = data_last1.select('rt').mean();
-            if (lasttrialdata_rt < 500){
-                    data.speedy = true;
-                } else {
-                    data.speedy = false; 
-            }
-            data.sampleAlg = "random";
-        }
-    };
-*/
-
 
     // define the trials!
     var trial = {
@@ -367,8 +336,111 @@
         },
     };
   
+*/
 
 
+var trial = {
+    type: jsPsychImageKeyboardResponse,
+    stimulus: jsPsych.timelineVariable('item'),
+    render_on_canvas: false,
+    stimulus_height: 150,
+    stimulus_width: 150,
+    choices: ['ArrowLeft', 'ArrowRight'],
+    
+    on_load: function() {  // ADD THIS WHOLE FUNCTION HERE
+        const stimulus = document.querySelector('#jspsych-image-keyboard-response-stimulus');
+        const choiceLeft = document.querySelector('#choice-left');
+        const choiceRight = document.querySelector('#choice-right');
+        
+        let loadedCount = 0;
+        const totalImages = 3;
+        
+        function checkAllLoaded() {
+            loadedCount++;
+            if (loadedCount === totalImages) {
+                // All loaded - show them simultaneously
+                if (stimulus) stimulus.style.visibility = 'visible';
+                choiceLeft.style.visibility = 'visible';
+                choiceRight.style.visibility = 'visible';
+            }
+        }
+        
+        if (stimulus && stimulus.complete) {
+            checkAllLoaded();
+        } else if (stimulus) {
+            stimulus.addEventListener('load', checkAllLoaded);
+        }
+        
+        if (choiceLeft.complete) {
+            checkAllLoaded();
+        } else {
+            choiceLeft.addEventListener('load', checkAllLoaded);
+        }
+        
+        if (choiceRight.complete) {
+            checkAllLoaded();
+        } else {
+            choiceRight.addEventListener('load', checkAllLoaded);
+        }
+    },
+    
+    on_start: function (trial) {
+        shuffle(stimuli_arr);
+        arr_pair = getRandomItems(stimuli_arr);
+        
+        while (
+            arr_pair[0] == jsPsych.timelineVariable('item') ||
+            arr_pair[1] == jsPsych.timelineVariable('item')
+        ) {
+            arr_pair = getRandomItems(stimuli_arr);
+        }
+        
+        console.log("Choices:", arr_pair);
+        
+        // ADD visibility: hidden to both choice images
+        trial.prompt = `
+        <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+          <img src="${arr_pair[0]}" style="width: 150px; height: 150px; margin-right: 50px; visibility: hidden;" id="choice-left" />
+          <img src="${arr_pair[1]}" style="width: 150px; height: 150px; margin-left: 50px; visibility: hidden;" id="choice-right" />
+        </div>
+      </div>`;
+      
+        trial.data = {
+            choices: [arr_pair[0], arr_pair[1]]
+        };
+    },
+    
+    on_finish: function (data) {
+            console.log("Response (key press):", data.response);
+
+            // Retrieve arr_pair from trial data
+            const choices = jsPsych.data.get().last(1).select('choices').values[0];
+            console.log("Retrieved Choices:", choices);
+
+            
+            if (data.response == 'ArrowLeft') {
+                console.log("ArrowLeft selected.");
+                data.selected_image = arr_pair[0];
+                data.selected_index = 0;  // ArrowLeft corresponds to the first choice
+            } else if (data.response == 'ArrowRight') {
+                console.log("ArrowRight selected.");
+                data.selected_image = arr_pair[1];
+                data.selected_index = 1;  // ArrowLeft corresponds to the first choice
+            }
+
+            // Get the previous trial's data and compute the average response time
+            var data_last1 = jsPsych.data.get().last(1);
+            var lasttrialdata_rt = data_last1.select("rt").mean();
+
+            // Check if the response was "speedy"
+            data.speedy = lasttrialdata_rt < 500 ? true : false;
+
+            // Record the sampling algorithm used
+            // Save additional data
+            data.choices = arr_pair;
+            data.sampleAlg = "random";
+        },
+};
 
   // define the validation trials!
   var validation_trial = {
