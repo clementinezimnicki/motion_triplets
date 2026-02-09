@@ -83,13 +83,15 @@
     //var filename = "triplets_colors_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
 
     //const subject_id = jsPsych.randomization.randomID(10);
-    const filename = `${subject_id}.csv`;
+    // generating a user id and file name  
+    var secret_code = jsPsych.data.urlVariables().id;
+    var filename = "motion_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
     // this is to save to OSF using DataPipe
     //if want to save data more often, copy this and change the name, and save halfway through
     const save_data = {
         type: jsPsychPipe,
         action: "save",
-        experiment_id: "w4nQvBPJtc5w",
+        experiment_id: "iUXhgryf8OOA",
         filename: filename,
         data_string: ()=>jsPsych.data.get().csv()
     };
