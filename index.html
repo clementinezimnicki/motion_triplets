@@ -64,28 +64,13 @@
 
     var jsPsych = initJsPsych();
     
-    // generating a user id and file name  
-    //var secret_code = jsPsych.data.urlVariables().id;
-   // var filename = "triplets_gabor_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
-    // capture info from Prolific
-    var subject_id = jsPsych.data.getURLVariable('PROLIFIC_PID');
-    var study_id = jsPsych.data.getURLVariable('STUDY_ID');
-    var session_id = jsPsych.data.getURLVariable('SESSION_ID');
-
-    jsPsych.data.addProperties({
-    subject_id: subject_id,
-    study_id: study_id,
-    session_id: session_id
-    });
-    
-    // generating a user id and file name  
-    //var secret_code = jsPsych.data.urlVariables().id;
-    //var filename = "triplets_colors_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
+ 
 
     //const subject_id = jsPsych.randomization.randomID(10);
     // generating a user id and file name  
     var secret_code = jsPsych.data.urlVariables().id;
     var filename = "motion_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
+
     // this is to save to OSF using DataPipe
     //if want to save data more often, copy this and change the name, and save halfway through
     const save_data = {
@@ -810,12 +795,11 @@ var demographics = {
         + "We think that the amount that people differ has been consistently underestimated. One way that we are testing for this is "
         + "through similarity tasks like the one in this experiment. We expect that people will systematically differ in their "
         + "perceptions of how similar colors are to each other."
-        + "You may now exit this page. Thank you for participating!</p>"
-        + "<strong> Here is your secret code: CLAUIODC </strong><br> Goodbye!<br><br>";
+        + "You may now exit this page. Thank you for participating!</p>";
+       // + "<strong> Here is your secret code: CLAUIODC </strong><br> Goodbye!<br><br>";
       return output;
       },
-      choices: ["<a href='https://app.prolific.com/submissions/complete?cc=CLAUIODC'>Complete Experiment</a>"]    
-      //choices: ["Complete Experiment"]
+      choices: ["Complete Experiment"]
    };
     
     timeline.push(save_data);
