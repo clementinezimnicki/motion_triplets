@@ -161,7 +161,6 @@
         type: jsPsychHtmlButtonResponse, // CHANGE THIS (instructions)
         stimulus: 
             "<div>" +
-            "STOP!!!!!!!!!!!!!!!"+
             "<p><font size='5'> <strong>UNIVERSITY OF WISCONSIN-MADISON</strong></font><br>" +
             "<strong>Research Participant Information and Consent Form</strong></p>" +
             "<p align='left'><strong>Title of the Study:</strong> Learning meanings of words and objects<br>" +
@@ -311,6 +310,8 @@
         type: jsPsychImageKeyboardResponse,
         stimulus: jsPsych.timelineVariable('item'),
         choices: ['ArrowLeft', 'ArrowRight'],
+        stimulus_height: 150,  // ADD THIS - matches your choice images
+        stimulus_width: 150,   // ADD THIS - matches your choice images
         on_start: function (trial) {
             shuffle(stimuli_arr);
             arr_pair = getRandomItems(stimuli_arr);
