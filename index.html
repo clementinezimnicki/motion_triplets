@@ -347,42 +347,29 @@ var trial = {
     stimulus_width: 150,
     choices: ['ArrowLeft', 'ArrowRight'],
     
-    on_load: function() {  // ADD THIS WHOLE FUNCTION HERE
-        const stimulus = document.querySelector('#jspsych-image-keyboard-response-stimulus');
-        const choiceLeft = document.querySelector('#choice-left');
-        const choiceRight = document.querySelector('#choice-right');
-        
-        let loadedCount = 0;
-        const totalImages = 3;
-        
-        function checkAllLoaded() {
-            loadedCount++;
-            if (loadedCount === totalImages) {
-                // All loaded - show them simultaneously
-                if (stimulus) stimulus.style.visibility = 'visible';
-                choiceLeft.style.visibility = 'visible';
-                choiceRight.style.visibility = 'visible';
-            }
-        }
-        
-        if (stimulus && stimulus.complete) {
-            checkAllLoaded();
-        } else if (stimulus) {
-            stimulus.addEventListener('load', checkAllLoaded);
-        }
-        
-        if (choiceLeft.complete) {
-            checkAllLoaded();
-        } else {
-            choiceLeft.addEventListener('load', checkAllLoaded);
-        }
-        
-        if (choiceRight.complete) {
-            checkAllLoaded();
-        } else {
-            choiceRight.addEventListener('load', checkAllLoaded);
-        }
-    },
+    on_load: function() {
+    const stimulus = document.querySelector('#jspsych-image-keyboard-response-stimulus');
+    const choiceLeft = document.querySelector('#choice-left');
+    const choiceRight = document.querySelector('#choice-right');
+    
+    // Add timestamp to force reload and restart GIFs
+    const timestamp = new Date().getTime();
+    
+    if (stimulus) {
+        const stimSrc = stimulus.src.split('?')[0]; // Remove any existing query params
+        stimulus.src = stimSrc + '?' + timestamp;
+    }
+    
+    if (choiceLeft) {
+        const leftSrc = choiceLeft.src.split('?')[0];
+        choiceLeft.src = leftSrc + '?' + timestamp;
+    }
+    
+    if (choiceRight) {
+        const rightSrc = choiceRight.src.split('?')[0];
+        choiceRight.src = rightSrc + '?' + timestamp;
+    }
+},
     
     on_start: function (trial) {
         shuffle(stimuli_arr);
