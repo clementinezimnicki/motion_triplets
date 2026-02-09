@@ -155,20 +155,6 @@
         return temp_array;
     }
       
- /*     
-    //check if mac, and if not, redirect
-        var isMac = navigator.platform.indexOf('Mac') !== -1;
-       
-        // If the user is not on a Mac, we can end the experiment right after the warning
-        if (!isMac) {
-            var endExperiment = {
-                type: jsPsychHtmlKeyboardResponse,
-                stimulus: "Thank you for your time, but unfortunately this experiment is only available on Mac computers. You may now exit this window.",
-                choices: "NO_KEYS"
-            };
-            timeline.push(endExperiment);
-        }
-*/
 
     //define welcome message trial 
     var welcome = {
@@ -183,13 +169,6 @@
       fullscreen_mode: true
     });    
          
-    /* define consent trail 
-    var consent = {
-        type: jsPsychImageButtonResponse,
-        stimulus: "kc_lab_consent_prolific.png", // CHANGE THIS (to Mturk/Prolific or SONA depending on your sample)
-        choices: ["Consent & Continue"]
-    };
-    timeline.push(consent);*/
 
     var consent = {
         type: jsPsychHtmlButtonResponse, // CHANGE THIS (instructions)
@@ -374,14 +353,7 @@
             const choices = jsPsych.data.get().last(1).select('choices').values[0];
             console.log("Retrieved Choices:", choices);
 
-            // // Ensure arr_pair is available
-            // if (typeof arr_pair === 'undefined') {
-            //   console.error("arr_pair is undefined. Data may not be set correctly.");
-            //   return;
-            // }
-            //shuffle(texture_arr);
-            //data.choices = arr_pair;
-            // Determine which image was selected based on key press
+            
             if (data.response == 'ArrowLeft') {
                 console.log("ArrowLeft selected.");
                 data.selected_image = arr_pair[0];
@@ -411,7 +383,7 @@
 
   // define the validation trials!
   var validation_trial = {
-        type: jsPsychImageKeyboardResponse,
+        type: jsPsychImageKeyboardResponse, //html
         stimulus: function () {
             row = validation_concat.pop();
             head = row.head;

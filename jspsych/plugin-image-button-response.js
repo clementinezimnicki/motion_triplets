@@ -85,7 +85,7 @@ var jsPsychImageButtonResponse = (function (jspsych) {
           render_on_canvas: {
               type: jspsych.ParameterType.BOOL,
               pretty_name: "Render on canvas",
-              default: true,
+              default: false,
           },
       },
   };
