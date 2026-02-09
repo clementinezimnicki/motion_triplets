@@ -64,12 +64,17 @@
 
     var jsPsych = initJsPsych();
     
- 
 
     //const subject_id = jsPsych.randomization.randomID(10);
     // generating a user id and file name  
     var secret_code = jsPsych.data.urlVariables().id;
     var filename = "motion_" + secret_code + "_part1.csv"; // CHANGE THIS (file name)
+
+    // Add this somewhere in your index file, after you initialize jsPsych 
+    // but before you run the experiment
+    jsPsych.data.addProperties({
+        part: 'part 1'
+    });
 
     // this is to save to OSF using DataPipe
     //if want to save data more often, copy this and change the name, and save halfway through
@@ -86,7 +91,7 @@
       
     // pulling info re: mechanical turk hit
     var urlvar = jsPsych.data.urlVariables();  
-      
+    
 
     // preload stimuli
     var preload = {
@@ -384,7 +389,7 @@ var trial = {
         
         console.log("Choices:", arr_pair);
         
-        // ADD visibility: hidden to both choice images
+        // ADD visibility
         trial.prompt = `
             <div style="display: flex; justify-content: space-around; margin-top: 20px;">
             <img src="${arr_pair[0]}" style="width: 150px; height: 150px; margin-right: 50px;" id="choice-left" />
