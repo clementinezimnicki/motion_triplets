@@ -386,11 +386,11 @@ var trial = {
         
         // ADD visibility: hidden to both choice images
         trial.prompt = `
-        <div style="display: flex; justify-content: space-around; margin-top: 20px;">
-          <img src="${arr_pair[0]}" style="width: 150px; height: 150px; margin-right: 50px; visibility: hidden;" id="choice-left" />
-          <img src="${arr_pair[1]}" style="width: 150px; height: 150px; margin-left: 50px; visibility: hidden;" id="choice-right" />
-        </div>
-      </div>`;
+            <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+            <img src="${arr_pair[0]}" style="width: 150px; height: 150px; margin-right: 50px;" id="choice-left" />
+            <img src="${arr_pair[1]}" style="width: 150px; height: 150px; margin-left: 50px;" id="choice-right" />
+            </div>
+        </div>`;
       
         trial.data = {
             choices: [arr_pair[0], arr_pair[1]]
